@@ -1,24 +1,32 @@
-package skyprocollectionslistsandsets;
+package skyprocollectionslistsandsets.employees;
 
 
 import java.util.Objects;
 
 public class Employee {
-
+    private String serviceNumber;
     private String firstName;
     private String lastName;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String serviceNumber, String firstName, String lastName) {
+        this.serviceNumber = serviceNumber;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+
+    public Employee() {
+    }
     public String getFirstName() {
         return firstName;
     }
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getServiceNumber() {
+        return serviceNumber;
     }
 
     @Override

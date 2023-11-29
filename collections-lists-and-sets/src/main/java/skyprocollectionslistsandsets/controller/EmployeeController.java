@@ -1,11 +1,14 @@
-package skyprocollectionslistsandsets;
+package skyprocollectionslistsandsets.controller;
 
 import org.springframework.web.bind.annotation.*;
+import skyprocollectionslistsandsets.employees.Employee;
+import skyprocollectionslistsandsets.service.EmployeeService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/employee")
+
 
 public class EmployeeController {
 
@@ -16,10 +19,12 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public Employee addEmployee(@RequestParam("firstName") String firstName,
+    public Employee addEmployee(@RequestParam("serviceNumber") String serviceNumber,
+                                @RequestParam("firstName") String firstName,
                                 @RequestParam("lastName") String lastname
     ) {
         Employee employee = new Employee(
+                serviceNumber,
                 firstName,
                 lastname
         );
@@ -28,27 +33,14 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/remove")
-    public Employee removeEmployee(@RequestParam("firstName") String firstName,
-                                   @RequestParam("lastName") String lastname
-    ) {
-        Employee employee = new Employee(
-                firstName,
-                lastname
-        );
-        employeeService.removeEmployee(employee);
-        return employee;
+    public Employee removeEmployee(@RequestParam("serviceNumber") String serviceNumber) {
+
+        return employeeService.removeEmployee(serviceNumber);
     }
 
     @GetMapping(path = "/find")
-    public Employee findEmployee(@RequestParam("firstName") String firstName,
-                                 @RequestParam("lastName") String lastname
-    ) {
-        Employee employee = new Employee(
-                firstName,
-                lastname
-        );
-
-        return employeeService.findEmployee(employee);
+    public Employee findEmployee(@RequestParam("serviceNumber") String serviceNumber) {
+        return employeeService.findEmployee(serviceNumber);
     }
 
     @GetMapping(path = "/allEmployees")

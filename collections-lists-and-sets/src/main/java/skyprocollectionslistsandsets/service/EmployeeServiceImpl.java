@@ -2,54 +2,56 @@ package skyprocollectionslistsandsets.service;
 
 import org.springframework.stereotype.Service;
 import skyprocollectionslistsandsets.employees.Employee;
+import skyprocollectionslistsandsets.exceptions.DepartmentsStorageFullException;
 import skyprocollectionslistsandsets.exceptions.EmployeeAlreadyAddedException;
 import skyprocollectionslistsandsets.exceptions.EmployeeNotFoundException;
 import skyprocollectionslistsandsets.exceptions.EmployeeStorageIsFullException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 
 public class EmployeeServiceImpl implements EmployeeService {
     private static final int maxEmployeeNumber = 5;
+    private static final int maxDepartmentNumber = 5;
 
-    private final Map<String, Employee> employees = new HashMap<>();
+    private final Map<Integer, Employee> employees = new HashMap<>();
 
     @Override
     public void addEmployee(Employee employee) {
         if (employees.size() == maxEmployeeNumber) {
             throw new EmployeeStorageIsFullException();
         }
-        if (employees.containsKey(employee.getServiceNumber())) {
+        if (employees.containsKey(employee.getId())) {
             throw new EmployeeAlreadyAddedException();
         }
-        employees.put(employee.getServiceNumber(), employee);
+        if (employee.getDepartmentId() > maxDepartmentNumber) {
+            throw new DepartmentsStorageFullException();
+        }
+        employees.put(employee.getId(), employee);
     }
 
     @Override
-    public Employee removeEmployee(String serviceNumber) {
-        Employee employee = employees.get(serviceNumber);
-        if (!employees.containsKey(serviceNumber)) {
+    public Employee removeEmployee(int id) {
+        Employee employee = employees.get(id);
+        if (!employees.containsKey(id)) {
             throw new EmployeeNotFoundException();
         }
-        employees.remove(employee.getServiceNumber(), employee);
+        employees.remove(employee.getId(), employee);
         return employee;
     }
 
     @Override
-    public Employee findEmployee(String serviceNumber) {
-        final Employee employee = employees.get(serviceNumber);
-        if (!employees.containsKey(serviceNumber)) {
+    public Employee findEmployee(int id) {
+        final Employee employee = employees.get(id);
+        if (!employees.containsKey(id)) {
             throw new EmployeeNotFoundException();
         }
         return employee;
     }
 
     @Override
-    public List<Employee> printEmployeesInfo() {
-        return new ArrayList<>(employees.values());
+    public Collection<Employee> printEmployeesInfo() {
+        return Collections.unmodifiableCollection(employees.values());
     }
 }

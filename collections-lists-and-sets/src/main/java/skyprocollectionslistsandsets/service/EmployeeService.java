@@ -3,15 +3,17 @@ package skyprocollectionslistsandsets.service;
 
 import skyprocollectionslistsandsets.employees.Employee;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Map;
 
 public interface EmployeeService {
 
     void addEmployee(Employee employee);
 
-    Employee removeEmployee(String serviceNumber);
+    Employee removeEmployee(int id);
 
-    Employee findEmployee(String serviceNumber);
+    Employee findEmployee(int id);
 
-    List<Employee> printEmployeesInfo();
+    Collection<Employee> printEmployeesInfo();
+
 }

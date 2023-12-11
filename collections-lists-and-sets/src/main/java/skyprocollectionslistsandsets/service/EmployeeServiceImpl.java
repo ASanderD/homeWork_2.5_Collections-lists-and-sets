@@ -12,8 +12,9 @@ import java.util.*;
 @Service
 
 public class EmployeeServiceImpl implements EmployeeService {
-    private static final int maxEmployeeNumber = 5;
+    private static final int maxEmployeeNumber = 20;
     private static final int maxDepartmentNumber = 5;
+    private int countId = 1;
 
     private final Map<Integer, Employee> employees = new HashMap<>();
 
@@ -53,5 +54,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Collection<Employee> printEmployeesInfo() {
         return Collections.unmodifiableCollection(employees.values());
+    }
+
+    @Override
+    public int generateId() {
+        return countId++;
     }
 }

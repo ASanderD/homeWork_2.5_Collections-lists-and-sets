@@ -19,13 +19,12 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public Employee addEmployee(@RequestParam("id") Integer id,
-                                @RequestParam("firstName") String firstName,
+    public Employee addEmployee(@RequestParam("firstName") String firstName,
                                 @RequestParam("lastName") String lastname,
-                                @RequestParam("departmentId")Integer departmentId,
-                                @RequestParam("salary")double salary) {
-        Employee employee = new Employee(
-                id,
+                                @RequestParam("departmentId") Integer departmentId,
+                                @RequestParam("salary") double salary) {
+                Employee employee = new Employee(
+                employeeService.generateId(),
                 firstName,
                 lastname,
                 departmentId,

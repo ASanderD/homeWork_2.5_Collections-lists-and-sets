@@ -4,7 +4,6 @@ package skyprocollectionslistsandsets.service;
 import skyprocollectionslistsandsets.employees.Employee;
 
 import java.util.Collection;
-import java.util.Map;
 
 public interface EmployeeService {
 
@@ -16,4 +15,5 @@ public interface EmployeeService {
 
     Collection<Employee> printEmployeesInfo();
 
+    int generateId();
 }

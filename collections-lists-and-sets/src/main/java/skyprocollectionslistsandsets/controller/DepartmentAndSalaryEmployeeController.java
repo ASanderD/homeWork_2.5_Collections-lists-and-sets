@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "employee/departments")
+@RequestMapping(path = "departments")
 
 public class DepartmentAndSalaryEmployeeController {
     private final DepartmentAndSalaryEmployeeService departmentAndSalaryEmployeeService;

@@ -1,11 +1,9 @@
 package skyprocollectionslistsandsets.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import skyprocollectionslistsandsets.employees.Employee;
-import skyprocollectionslistsandsets.exceptions.DepartmentsStorageFullException;
-import skyprocollectionslistsandsets.exceptions.EmployeeAlreadyAddedException;
-import skyprocollectionslistsandsets.exceptions.EmployeeNotFoundException;
-import skyprocollectionslistsandsets.exceptions.EmployeeStorageIsFullException;
+import skyprocollectionslistsandsets.exceptions.*;
 
 import java.util.*;
 
@@ -59,5 +57,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int generateId() {
         return countId++;
+    }
+
+    @Override
+    public void checkEmployee(String string) throws EmployeeBadRequestException {
+        if (!StringUtils.isAlpha(string)) {
+            throw new EmployeeBadRequestException();
+        }
     }
 }

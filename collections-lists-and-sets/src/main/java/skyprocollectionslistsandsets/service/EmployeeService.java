@@ -16,4 +16,6 @@ public interface EmployeeService {
     Collection<Employee> printEmployeesInfo();
 
     int generateId();
+
+    void checkEmployee(String string);
 }

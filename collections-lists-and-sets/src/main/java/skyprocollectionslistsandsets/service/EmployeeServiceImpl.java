@@ -10,24 +10,28 @@ import java.util.*;
 @Service
 
 public class EmployeeServiceImpl implements EmployeeService {
-    private static final int maxEmployeeNumber = 20;
+    private static final int maxEmployeeNumber = 5;
     private static final int maxDepartmentNumber = 5;
     private int countId = 1;
 
     private final Map<Integer, Employee> employees = new HashMap<>();
 
     @Override
-    public void addEmployee(Employee employee) {
+    public void addEmployee(String firstName, String lastName, int departmentId, double salary) {
+        checkEmployee(firstName.toLowerCase());
+        checkEmployee(lastName.toLowerCase());
+
         if (employees.size() == maxEmployeeNumber) {
             throw new EmployeeStorageIsFullException();
         }
-        if (employees.containsKey(employee.getId())) {
+        int key = countId++;
+        if (employees.containsKey(key)) {
             throw new EmployeeAlreadyAddedException();
         }
-        if (employee.getDepartmentId() > maxDepartmentNumber) {
+        if (departmentId > maxDepartmentNumber) {
             throw new DepartmentsStorageFullException();
         }
-        employees.put(employee.getId(), employee);
+        employees.put(key, new Employee(key, firstName, lastName, departmentId, salary));
     }
 
     @Override
@@ -60,9 +64,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void checkEmployee(String string) throws EmployeeBadRequestException {
+    public void checkEmployee(String string) {
         if (!StringUtils.isAlpha(string)) {
             throw new EmployeeBadRequestException();
         }
+        StringUtils.capitalize(string);
     }
 }

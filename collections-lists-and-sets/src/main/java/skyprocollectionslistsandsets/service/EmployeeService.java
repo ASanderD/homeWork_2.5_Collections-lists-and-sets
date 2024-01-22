@@ -7,8 +7,7 @@ import java.util.Collection;
 
 public interface EmployeeService {
 
-    void addEmployee(Employee employee);
-
+    void addEmployee(String firstName, String lastName, int departmentId, double salary);
     Employee removeEmployee(int id);
 
     Employee findEmployee(int id);
@@ -16,6 +15,7 @@ public interface EmployeeService {
     Collection<Employee> printEmployeesInfo();
 
     int generateId();
+
 
     void checkEmployee(String string);
 }

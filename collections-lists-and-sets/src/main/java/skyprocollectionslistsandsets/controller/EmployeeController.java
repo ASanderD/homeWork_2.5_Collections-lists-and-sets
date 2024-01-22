@@ -1,9 +1,7 @@
 package skyprocollectionslistsandsets.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import skyprocollectionslistsandsets.employees.Employee;
-import skyprocollectionslistsandsets.exceptions.EmployeeBadRequestException;
 import skyprocollectionslistsandsets.service.EmployeeService;
 
 import java.util.Collection;
@@ -21,26 +19,12 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public Employee addEmployee(@RequestParam("firstName") String firstName,
+    public void addEmployee(@RequestParam("firstName") String firstName,
                                 @RequestParam("lastName") String lastName,
                                 @RequestParam("departmentId") Integer departmentId,
                                 @RequestParam("salary") double salary) {
-        try {
-            employeeService.checkEmployee(firstName);
-            employeeService.checkEmployee(lastName);
 
-        } catch (EmployeeBadRequestException e) {
-            throw new RuntimeException(e);
-        }
-
-        Employee employee = new Employee(
-                employeeService.generateId(),
-                StringUtils.capitalize(firstName),
-                StringUtils.capitalize(lastName),
-                departmentId,
-                salary);
-        employeeService.addEmployee(employee);
-        return employee;
+        employeeService.addEmployee(firstName, lastName, departmentId, salary);
     }
 
     @GetMapping(path = "/remove")

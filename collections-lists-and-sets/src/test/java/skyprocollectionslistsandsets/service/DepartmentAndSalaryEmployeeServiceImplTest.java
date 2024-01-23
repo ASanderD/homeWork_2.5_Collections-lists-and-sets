@@ -40,13 +40,13 @@ public class DepartmentAndSalaryEmployeeServiceImplTest {
 
 
     @Mock
-    private EmployeeServiceImpl employeeServiceImpl;
+    private EmployeeService employeeService;
     @InjectMocks
     private DepartmentAndSalaryEmployeeServiceImpl departmentAndSalaryEmployeeServiceImpl;
 
     @BeforeEach
     public void beforeEach() {
-        when(employeeServiceImpl.printEmployeesInfo()).thenReturn(employeesTest);
+        when(employeeService.printEmployeesInfo()).thenReturn(employeesTest);
     }
 
     @Test
